@@ -1,4 +1,5 @@
 import sqlite3
+import sqlcipher3
 
 from sqlalchemy import create_engine, String
 from sqlalchemy import Column, Integer, ForeignKey
@@ -17,7 +18,8 @@ print(sqlite3.sqlite_version)
 # c.execute("CREATE TABLE IF NOT EXISTS table1 \
 #     (id integer PRIMARY KEY, name text, birthday text)")
 
-conn_string = 'sqlite:///test.db'
+# conn_string = 'sqlite:///test.db'
+conn_string = 'sqlite+pysqlcipher://:cipher1234567890@/' + 'test-cipher.db'
 engine = create_engine(conn_string, echo=True)
 # Base = declarative_base()
 Base = declarative_base(bind=engine)
@@ -36,7 +38,7 @@ class Movie(Base):
 
 # =================== 생성 처리 ==================
 Movie.__table__.create(bind=engine, checkfirst=True)
-movie_list=Movie(date=20190625, rank=1, movieNm='toystory', movieCd=12345, salesAmt=1234545123, audiCnt=342)
+movie_list=Movie(date=20190625, rank=1, movieNm='toystory', movieCd=22222, salesAmt=1234545123, audiCnt=342)
 session.add(movie_list)
 session.commit()
 
